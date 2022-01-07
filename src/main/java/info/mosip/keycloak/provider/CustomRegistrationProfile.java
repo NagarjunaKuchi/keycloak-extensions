@@ -94,8 +94,25 @@ public class CustomRegistrationProfile implements FormAction,FormActionFactory {
 	}
 
 	@Override
-	public void validate(ValidationContext context) {
-		context.success();
+	public void validate(ValidationContext context) {		
+		UserModel user = context.getUser();		
+		if(isInputStringContainsSpaces(user.getUsername())) {
+			context.error("Username should not contain any spaces");
+		}else {
+			context.success();
+		}
+	}
+	
+	/**
+	 * 
+	 * @param inputString
+	 * @return
+	 */
+	private boolean isInputStringContainsSpaces(String inputString) {
+		if (inputString.matches(".*\\s.*")) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override
