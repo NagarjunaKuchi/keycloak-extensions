@@ -54,12 +54,7 @@
             <artifactId>keycloak-server-spi</artifactId>
             <version>${version.org.keycloak}</version>
         </dependency>
-      <!--   <dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-collections4</artifactId>
-		    <version>4.2</version>
-		</dependency> -->
-		<dependency>
+ 		<dependency>
       <groupId>org.jboss.resteasy</groupId>
       <artifactId>resteasy-client</artifactId>
       <version>3.0.8.Final</version>
