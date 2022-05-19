@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 import javax.ws.rs.core.MultivaluedMap;
 
-import org.jboss.resteasy.logging.Logger;
+import org.jboss.logging.Logger;
 import org.keycloak.authentication.FormAction;
 import org.keycloak.authentication.FormActionFactory;
 import org.keycloak.authentication.FormContext;
@@ -122,14 +122,19 @@ public class CustomRegistrationProfile implements FormAction, FormActionFactory 
 		if (formData.getFirst("user.attributes.address").isBlank()) {
 			errors.add(new FormMessage("user.attributes.address", "Please specify address"));
 		}
+		
+		if (formData.getFirst("username").isBlank()) {
+			errors.add(new FormMessage("username", "Please specify username"));
+		}	
+		
 
 		if (formData.getFirst("email").isBlank()) {
 			errors.add(new FormMessage("email", "Please specify email"));
 		} else if (!EMAIL_PATTERN.matcher(formData.getFirst("email")).matches()) {
 			errors.add(new FormMessage("email", "Please specify valid email"));
 		}else if (context.getSession().users().getUserByEmail(formData.getFirst("email"), context.getRealm()) != null) {
-			errors.add(new FormMessage("email", "email exists"));
-		}
+			errors.add(new FormMessage("email", "email already exists"));
+		} 
 
 		if (isInputStringContainsSpaces(formData.getFirst("username"))) {
 			errors.add(new FormMessage("user.attributes.username", "Username should not contain spaces"));
