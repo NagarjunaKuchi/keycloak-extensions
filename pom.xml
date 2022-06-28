@@ -13,13 +13,27 @@
         <version.org.keycloak>3.4.0.Final</version.org.keycloak>
         <version.org.jboss.logging>3.3.0.Final</version.org.jboss.logging>
         <maven.jar.plugin.version>3.0.2</maven.jar.plugin.version>
-		<maven.war.plugin.version>3.1.0</maven.war.plugin.version>
-        
+		<maven.war.plugin.version>3.1.0</maven.war.plugin.version>        
+     	<maven.compiler.source>1.8</maven.compiler.source>
+     	<maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
 
-    <build>
+    
+     <build>
+        <finalName>spi-keycloak</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>3.0.1.Final</version>
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+<!--         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -64,7 +78,7 @@
 				</configuration>
 			</plugin>
             
-            <!-- <plugin>
+            <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.1.1</version>
                 <configuration>
@@ -81,10 +95,10 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin> -->
+            </plugin>
                         
-        </plugins>
-    </build>
+        </plugins> -->
+   
 
     <dependencies>
         <dependency>
@@ -92,11 +106,16 @@
             <artifactId>keycloak-server-spi</artifactId>
             <version>${version.org.keycloak}</version>
         </dependency>
-	<dependency>
+	<!-- <dependency>
 		<groupId>org.jboss.resteasy</groupId>
 		<artifactId>resteasy-client</artifactId>
 		<version>3.0.8.Final</version>
-	</dependency>
+	</dependency> -->
+	<dependency>
+	    <groupId>org.jboss.resteasy</groupId>
+	    <artifactId>resteasy-client</artifactId>
+	    <version>5.0.3.Final</version>
+	</dependency>	
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-server-spi-private</artifactId>
@@ -107,12 +126,12 @@
             <artifactId>keycloak-core</artifactId>
             <version>${version.org.keycloak}</version>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
             <version>${version.org.jboss.logging}</version>
             <scope>compile</scope>       
-            </dependency>
+            </dependency> -->
     </dependencies>
 
 

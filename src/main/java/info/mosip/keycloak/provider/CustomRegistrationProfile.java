@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 
 import javax.ws.rs.core.MultivaluedMap;
 
-import org.jboss.logging.Logger;
 import org.keycloak.authentication.FormAction;
 import org.keycloak.authentication.FormActionFactory;
 import org.keycloak.authentication.FormContext;
@@ -24,12 +23,14 @@ import org.keycloak.models.UserModel;
 import org.keycloak.models.utils.FormMessage;
 import org.keycloak.provider.ProviderConfigProperty;
 
+//import jakarta.ws.rs.core.MultivaluedMap;
+
 public class CustomRegistrationProfile implements FormAction, FormActionFactory {
 
 	public static final String PROVIDER_ID = "registration-profile-action";
 	private static final Pattern EMAIL_PATTERN = Pattern
 			.compile("[a-zA-Z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*");
-	Logger logger = Logger.getLogger(CustomRegistrationProfile.class);
+//	Logger logger = Logger.getLogger(CustomRegistrationProfile.class);
 
 	@Override
 	public void close() {
@@ -39,7 +40,7 @@ public class CustomRegistrationProfile implements FormAction, FormActionFactory 
 
 	@Override
 	public FormAction create(KeycloakSession session) {
-		logger.info("Inside the create" + session);
+		//logger.info("Inside the create" + session);
 		return new CustomRegistrationProfile();
 	}
 
@@ -50,7 +51,7 @@ public class CustomRegistrationProfile implements FormAction, FormActionFactory 
 
 	@Override
 	public String getId() {
-		logger.info("Inside the getId" + PROVIDER_ID);
+		//logger.info("Inside the getId" + PROVIDER_ID);
 		return PROVIDER_ID;
 	}
 
@@ -100,7 +101,7 @@ public class CustomRegistrationProfile implements FormAction, FormActionFactory 
 
 	@Override
 	public void validate(ValidationContext context) {
-		logger.info("Inside user validation");
+		//logger.info("Inside user validation");
 		MultivaluedMap<String, String> formData = context.getHttpRequest().getDecodedFormParameters();
 		List<FormMessage> errors = new ArrayList<>();
 
@@ -164,11 +165,11 @@ public class CustomRegistrationProfile implements FormAction, FormActionFactory 
 
 	@Override
 	public void success(FormContext context) {
-		logger.info("Entering the success" + PROVIDER_ID);
+		//logger.info("Entering the success" + PROVIDER_ID);
 		UserModel user = context.getUser();
 		MultivaluedMap<String, String> formData = context.getHttpRequest().getDecodedFormParameters();
 		RoleModel role = context.getRealm().getRole(formData.getFirst("user.attributes.partnerType"));
-		logger.info("leaving the success" + role.getId());
+		//logger.info("leaving the success" + role.getId());
 		user.grantRole(role);
 	}
 
