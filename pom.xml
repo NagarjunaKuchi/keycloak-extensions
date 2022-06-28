@@ -10,8 +10,11 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <version.org.keycloak>18.0.0</version.org.keycloak>
+        <version.org.keycloak>3.4.0.Final</version.org.keycloak>
         <version.org.jboss.logging>3.3.0.Final</version.org.jboss.logging>
+        <maven.jar.plugin.version>3.0.2</maven.jar.plugin.version>
+		<maven.war.plugin.version>3.1.0</maven.war.plugin.version>
+        
     </properties>
 
 
@@ -26,8 +29,42 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-
-            <plugin>
+            			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>${maven.jar.plugin.version}</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+						<manifestEntries>
+							<Project-Name>${project.name}</Project-Name>
+							<Project-Version>${project.version}</Project-Version>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${maven.war.plugin.version}</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+						<manifestEntries>
+							<Project-Name>${project.name}</Project-Name>
+							<Project-Version>${project.version}</Project-Version>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+            
+            <!-- <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.1.1</version>
                 <configuration>
@@ -44,7 +81,8 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
+                        
         </plugins>
     </build>
 
@@ -54,11 +92,11 @@
             <artifactId>keycloak-server-spi</artifactId>
             <version>${version.org.keycloak}</version>
         </dependency>
- 		<dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-client</artifactId>
-      <version>3.0.8.Final</version>
-  </dependency>
+	<dependency>
+		<groupId>org.jboss.resteasy</groupId>
+		<artifactId>resteasy-client</artifactId>
+		<version>3.0.8.Final</version>
+	</dependency>
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-server-spi-private</artifactId>
@@ -73,9 +111,8 @@
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
             <version>${version.org.jboss.logging}</version>
-            <scope>provided</scope>
-        </dependency>
-
+            <scope>compile</scope>       
+            </dependency>
     </dependencies>
 
 
